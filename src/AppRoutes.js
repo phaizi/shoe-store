@@ -6,20 +6,30 @@ import Products from './components/Products'
 import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart'
 import Layout from './components/Layout'
+import { CartContext, ProductsContext } from './services/context';
+import { useReducer, useState } from 'react';
+import changeQuantity from './services/changeQuantity';
+
+
 
 export default function AppRoutes() {
+
+  const [productData, setProductData] = useState({});
+
   return (
-      <div>
-    <Routes>
-      <Route path="/" element={<Layout/>}>
-        <Route path="/" element={<Home/>} />
-        <Route path="products" element={<Products/>} />
-        <Route path="products/:productID" element={<ProductDetails/>}/>
-        <Route path="about" element={<About/>} />
-        <Route path="cart" element={<Cart/>} />
-        <Route path='*' element= {<NotFound/>} />
-      </Route>
-    </Routes>
-      </div>
+      <CartContext.Provider value={useReducer(changeQuantity, [])}>
+        <ProductsContext.Provider value={[productData, setProductData]}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/:productID" element={<ProductDetails />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="about" element={<About />} />
+              <Route path='*' element={<NotFound />} />
+            </Route>
+          </Routes>
+        </ProductsContext.Provider>
+      </CartContext.Provider>
   );
 }
