@@ -7,8 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Toolbar from '@material-ui/core/Toolbar';
+import CartIcon from './CartIcon';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     tabs:{
-        width:'100%'
+        width:'100%',
     }
 
 }));
@@ -103,7 +103,7 @@ export default function Layout() {
           <Tab className={classes.tabs} component={Link} value='/' to='/' label="Home"   />
           <Tab className={classes.tabs} component={Link} value='/products' to='/products' label="Products"   />
           <Tab className={classes.tabs} component={Link} value='/about' to='/about' label="About"   />
-          <Tab className={classes.tabs} icon={<ShoppingCart/> } component={Link} value="/cart" to="/cart" />
+          <Tab className={classes.tabs} icon={<CartIcon/> } component={Link} value="/cart" to="/cart" />
         </Tabs>
             </Toolbar>
       </AppBar>
