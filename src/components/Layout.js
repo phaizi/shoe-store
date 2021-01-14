@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import CartIcon from './CartIcon';
+import pic from '../services/backGroundBlack.jpg';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +61,15 @@ function TabPanel(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+     backgroundImage: `url(${pic})`,
+     backgroundSize: 'cover',
+     backgroundAttachment: 'fixed',
+     minHeight: '100vh',
+    //  maxHeight: '7000px',
+    //  backgroundPosition: 'center',
+  // backgroundRepeat: 'no-repeat',
+
+    // backgroundColor: theme.palette.background.paper,
   },
   label: {
       width: '20%',
