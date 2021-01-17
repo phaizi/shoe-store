@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext, useMemo} from 'react';
 // import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +10,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import CartIcon from './CartIcon';
 import pic from '../services/backGroundBlack.jpg';
+import { CartContext } from '../services/context';
 
 
 function TabPanel(props) {
@@ -61,39 +62,41 @@ function TabPanel(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-     backgroundImage: `url(${pic})`,
-     backgroundSize: 'cover',
-     backgroundAttachment: 'fixed',
-     minHeight: '100vh',
+    backgroundImage: `url(${pic})`,
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
+    minHeight: '100vh',
     //  maxHeight: '7000px',
     //  backgroundPosition: 'center',
-  // backgroundRepeat: 'no-repeat',
-
+    // backgroundRepeat: 'no-repeat',
+    
     // backgroundColor: theme.palette.background.paper,
   },
   label: {
-      width: '20%',
-      fontSize: '1.8em',
-      lineHeight: `48px`,
-      marginLeft: '25px',
-      [theme.breakpoints.down('sm')]: {
-        display: 'none',
-      }
-    },
-    tabs:{
-        width:'100%',
+    width: '20%',
+    fontSize: '1.8em',
+    lineHeight: `48px`,
+    marginLeft: '25px',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     }
-
+  },
+  tabs:{
+    width:'100%',
+  }
+  
 }));
 
 export default function Layout() {
-    const location = useLocation();
+  const [cartState,] = useContext(CartContext);
+  const location = useLocation();
   const classes = useStyles();
   const [value, setValue] = React.useState(location.pathname);
-
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+console.log('this is Layout')
 
   return (
     <div className={classes.root}>
@@ -113,8 +116,9 @@ export default function Layout() {
           <Tab className={classes.tabs} component={Link} value='/' to='/' label="Home"   />
           <Tab className={classes.tabs} component={Link} value='/products' to='/products' label="Products"   />
           <Tab className={classes.tabs} component={Link} value='/about' to='/about' label="About"   />
-          <Tab className={classes.tabs} icon={<CartIcon/> } component={Link} value="/cart" to="/cart" />
+          <Tab className={classes.tabs} icon={<CartIcon quantity={cartState.total}/> } component={Link} value="/cart" to="/cart" />
         </Tabs>
+        {/* <Button onClick={()=>{cartDispatch({type:'add',item:{}});}}>state CHange</Button> */}
             </Toolbar>
       </AppBar>
       <TabPanel value={value} index={'/'}>
@@ -122,15 +126,15 @@ export default function Layout() {
        
       </TabPanel>
       <TabPanel value={value} index={'/products'}>
-          <Outlet/>
-        
+         
+         { useMemo(() => <Outlet/>, []) }
       </TabPanel>
       <TabPanel value={value} index={'/about'}>
-          <Outlet/>
+      { useMemo(() => <Outlet/>, []) }
 
           </TabPanel>
       <TabPanel value={location.pathname} index={'/cart'}>
-          <Outlet/>
+      { useMemo(() => <Outlet/>, []) }
         
       </TabPanel>
     </div>

@@ -11,12 +11,14 @@ export default function CartIcon({ quantity }) {
             textAlign: 'center',
             borderRadius: '50%',
             minWidth: '30px',
-            height: '30px'
+            height: '30px',
+            fontSize: '20px'
         },
         icon: {
             fontSize: '30px',
         }
     });
+    console.log('this is Carticon')
     const classes = useStyles();
     return (
         <div>

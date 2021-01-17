@@ -20,7 +20,8 @@ export default function AppRoutes() {
       const response = await fetch("https://api.thesneakerdatabase.com/v1/sneakers?"+ new URLSearchParams({'limit':'100', 'releaseDate': '2019-11-01'}))
       // const response = await fetch("https://covid19.mathdro.id/api?limit=100")
       const {results} = await response.json();
-      console.log('data is =',results)
+      // console.log('data is =',results)
+      console.log('this is AppRoutes')
       setProductData(results)
     } catch (err) {
       console.log('NETWORK ERROR')
@@ -52,7 +53,7 @@ export default function AppRoutes() {
   })
 
   return (
-      <CartContext.Provider value={useReducer(changeQuantity, [])}>
+      <CartContext.Provider value={useReducer(changeQuantity, {total:0})}>
         <ProductsContext.Provider value={[productData, setProductData]}>
           <ThemeProvider theme={theme}>
           {/* <CssBaseline /> */}

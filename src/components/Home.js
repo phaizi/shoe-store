@@ -1,14 +1,15 @@
 import React from 'react'
-import {useParams, useLocation} from 'react-router-dom'
+// import {useParams, useLocation} from 'react-router-dom'
 
 export default function Home(props) {
-    let location = useLocation();
-    console.log('thisi is location= ',location)
+    // let location = useLocation();
+    // console.log('thisi is location= ',location)
     // let History = useHistory();
     // console.log('thisi is History= ',History)
-    const params = useParams();
-    console.log('this is params 2= ',params);
-    console.log('this is props= ',props)
+    // const params = useParams();
+    // console.log('this is params 2= ',params);
+    // console.log('this is props= ',props)
+    console.log('this is Home')
     return (
         <h1>Home</h1>
         

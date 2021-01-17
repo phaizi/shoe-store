@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { ProductsContext } from '../services/context';
+import React, { memo, useContext } from 'react'
+import { ProductsContext, CartContext } from '../services/context';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { Grow } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '22%',
     margin: '20px',
     flex: '23%',
+    transition: 'box-shadow 0.5s, max-width 0.5s ease-out',
 
     '&:hover': {
       maxWidth: '366px',
@@ -59,34 +61,37 @@ const useStyles = makeStyles(theme => ({
   },
 
   card: {
+    transition: 'background-color 1s',
+
     '&:hover': {
       backgroundColor: theme.palette.secondary.main
     },
   },
 
+  cartCount: { 
+    marginLeft: '0px', 
+  borderRadius: '50%', 
+  height: '50px', 
+  textAlign: 'center', 
+  lineHeight: '50px', float: 'right', width: '50px', 
+  backgroundColor: 'orange',
+  color: 'white',
+  fontSize:'30px' },
+
 }));
 
-export default function Products() {
-  // const [count,setCount] =  useState({c:1}); 
-  let [Products] = useContext(ProductsContext);
+const Products = memo((props) => {
+  const [products] = useContext(ProductsContext);
+  const [cartState, cartDispatch] = useContext(CartContext);
   const classes = useStyles();
-  console.log('Products = ', Products)
-  console.log('is it array?', Array.isArray(Products))
-  // console.log('Count = ',count.c)
-  // count.c = count.c+1;
-  if (Array.isArray(Products)) {
-    let Prop = Products.map((product) => product.title)
-    console.log('Prop= ', Prop)
-    console.log('Products with &&= ', Products && Products[1])
-  }
-  Products = Products && Products;
+  console.log('Products = ', products)
+  console.log('this is Products')
+
   return (
     <div className={classes.container}>
-      {Products && Products.map((product) => {
-        console.log('product= ', product)
+      {products.map((product) => {
         return (
-
-          <Card key={product.id} className={classes.root}>
+          <Card key={product.id} className={classes.root} style={cartState[product.id] ? { boxShadow: '0px 0px 10px 5px orange' } : {}}>
             <CardActionArea className={classes.card}>
               <CardMedia
                 className={classes.media}
@@ -96,9 +101,14 @@ export default function Products() {
               <CardContent
                 style={{ height: '150px' }}
               >
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h5" component="h2" style={{ minHeight: '100px', }}>
                   {product.title}
                 </Typography>
+                <Grow {...(cartState[product.id] ? { timeout: 1000 } : {})} in={cartState[product.id]}>
+                  <span className={classes.cartCount}>
+                    {cartState[product.id]?.quantity}
+                    </span>
+                </Grow>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Gender: {product.gender}
                 </Typography>
@@ -106,17 +116,30 @@ export default function Products() {
                   Price: {product.retailPrice || 'N/A'}
                 </Typography>
               </CardContent>
+
               <CardActions className={classes.buttonSec} >
-
-
-                <Button variant="contained" color="secondary">
+                <Button disable
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    cartDispatch({ type: 'add', item: product });
+                  }}
+                  variant="contained" color="secondary">
                   Add To Cart
-        </Button>
+                </Button>
                 <div>
-                  <Button variant="contained" color="secondary" style={{ margin: 3 }}>
+                  <Button disabled={!cartState[product.id] || false} onClick={(e) => {
+                    e.stopPropagation();
+                    cartDispatch({ type: 'remove', item: product });
+                  }}
+                    variant="contained" color="secondary" style={{ margin: 3 }}>
                     <RemoveIcon />
                   </Button>
-                  <Button variant="contained" color="secondary" style={{ margin: 3 }}>
+                  <Button disabled={!cartState[product.id] || false}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      cartDispatch({ type: 'clear', item: product });
+                    }}
+                    variant="contained" color="secondary" style={{ margin: 3 }}>
                     <ClearIcon />
                   </Button>
                 </div>
@@ -127,8 +150,11 @@ export default function Products() {
         )
       })}
     </div>
+
   );
-}
+})
+
+export default Products;
 
 
 
