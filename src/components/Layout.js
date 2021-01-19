@@ -89,12 +89,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Layout() {
   const [cartState,] = useContext(CartContext);
-  const location = useLocation();
+  let location = useLocation().pathname;
+  location = location.slice(-1)==='/'? location:(location + '/');
   const classes = useStyles();
-  const [value, setValue] = React.useState(location.pathname);
-  
+  // const [value, setValue] = React.useState(location.pathname);
+  const [value, setValue] = React.useState(location);
+  console.log('this is a tabpanel',<TabPanel></TabPanel>)
+  console.log('this is a empty object which is',{},'and is',{}||'false')
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    // setValue(newValue);
   };
 console.log('this is Layout')
 
@@ -107,36 +110,49 @@ console.log('this is Layout')
         <Tabs 
         className={classes.tabs}
           variant="fullWidth"
-          value={value}
+          // value={'/about'}
         centered
-        // value={location.pathname}
+        //
+        value={location}
         onChange={handleChange}
         aria-label="nav tabs example"
         >
           <Tab className={classes.tabs} component={Link} value='/' to='/' label="Home"   />
-          <Tab className={classes.tabs} component={Link} value='/products' to='/products' label="Products"   />
-          <Tab className={classes.tabs} component={Link} value='/about' to='/about' label="About"   />
-          <Tab className={classes.tabs} icon={<CartIcon quantity={cartState.total}/> } component={Link} value="/cart" to="/cart" />
+          <Tab className={classes.tabs} component={Link} value='/products/' to='products/' label="Products"   />
+          <Tab className={classes.tabs} component={Link} value='/about/' to='about/' label="About"   />
+          <Tab className={classes.tabs} icon={<CartIcon quantity={cartState.total}/> } component={Link} value="/cart/" to="cart/" />
         </Tabs>
         {/* <Button onClick={()=>{cartDispatch({type:'add',item:{}});}}>state CHange</Button> */}
             </Toolbar>
       </AppBar>
-      <TabPanel value={value} index={'/'}>
+     
+      {/* <TabPanel value={location} index={'/'}>
+       <h1>home</h1> 
           <Outlet/>
        
       </TabPanel>
-      <TabPanel value={value} index={'/products'}>
+      <TabPanel value={location} index={'/products/'}>
          
+       <h1>products</h1> 
          { useMemo(() => <Outlet/>, []) }
       </TabPanel>
-      <TabPanel value={value} index={'/about'}>
+      <TabPanel value={location} index={'/about/'}>
+       <h1>about</h1> 
+
       { useMemo(() => <Outlet/>, []) }
 
           </TabPanel>
-      <TabPanel value={location.pathname} index={'/cart'}>
+      <TabPanel value={location} index={'/cart/'}>
+       <h1>cart</h1> 
+
       { useMemo(() => <Outlet/>, []) }
-        
       </TabPanel>
+        
+     
+      {['/','/about/','/cart/','/products/'].includes(location) ? <div/> :<div><h1>default</h1><Outlet/></div>} */}
+        
+  <Outlet/>
+      
     </div>
   );
 }

@@ -56,7 +56,7 @@ export default function AppRoutes() {
       <CartContext.Provider value={useReducer(changeQuantity, {total:0})}>
         <ProductsContext.Provider value={[productData, setProductData]}>
           <ThemeProvider theme={theme}>
-          {/* <CssBaseline /> */}
+    
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />

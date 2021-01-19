@@ -10,7 +10,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { Grow } from '@material-ui/core';
+import { Grow, useMediaQuery } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   container: {
+    padding:'24px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly'
@@ -68,15 +71,30 @@ const useStyles = makeStyles(theme => ({
     },
   },
 
-  cartCount: { 
-    marginLeft: '0px', 
-  borderRadius: '50%', 
-  height: '50px', 
-  textAlign: 'center', 
-  lineHeight: '50px', float: 'right', width: '50px', 
-  backgroundColor: 'orange',
-  color: 'white',
-  fontSize:'30px' },
+  cartCount: {
+    marginLeft: '0px',
+    borderRadius: '50%',
+    height: '50px',
+    textAlign: 'center',
+    lineHeight: '50px', float: 'right', width: '50px',
+    backgroundColor: 'orange',
+    color: 'white',
+    fontSize: '30px'
+  },
+
+  paginationAlign: {
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    width: '414px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '40px',
+    marginBottom: '40px',
+
+    [theme.breakpoints.down(424)]: {
+      width: '252px',
+    }
+  }
 
 }));
 
@@ -104,10 +122,10 @@ const Products = memo((props) => {
                 <Typography gutterBottom variant="h5" component="h2" style={{ minHeight: '100px', }}>
                   {product.title}
                 </Typography>
-                <Grow {...(cartState[product.id] ? { timeout: 1000 } : {})} in={cartState[product.id]}>
+                <Grow {...{ timeout: 1000 }} in={!!cartState[product.id]}>
                   <span className={classes.cartCount}>
                     {cartState[product.id]?.quantity}
-                    </span>
+                  </span>
                 </Grow>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Gender: {product.gender}
@@ -118,7 +136,7 @@ const Products = memo((props) => {
               </CardContent>
 
               <CardActions className={classes.buttonSec} >
-                <Button disable
+                <Button 
                   onClick={(e) => {
                     e.stopPropagation();
                     cartDispatch({ type: 'add', item: product });
@@ -149,6 +167,10 @@ const Products = memo((props) => {
           </Card>
         )
       })}
+
+      <Pagination count={10} color="secondary" className={classes.paginationAlign}
+        size={useMediaQuery(theme => theme.breakpoints.down(424)) ? 'small' : 'large'} />
+
     </div>
 
   );
