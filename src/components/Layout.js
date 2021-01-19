@@ -1,4 +1,4 @@
-import React,{useContext, useMemo} from 'react';
+import React,{useContext} from 'react';
 // import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -93,7 +93,7 @@ export default function Layout() {
   location = location.slice(-1)==='/'? location:(location + '/');
   const classes = useStyles();
   // const [value, setValue] = React.useState(location.pathname);
-  const [value, setValue] = React.useState(location);
+  // const [value, setValue] = React.useState(location);
   console.log('this is a tabpanel',<TabPanel></TabPanel>)
   console.log('this is a empty object which is',{},'and is',{}||'false')
   const handleChange = (event, newValue) => {
@@ -151,7 +151,7 @@ console.log('this is Layout')
      
       {['/','/about/','/cart/','/products/'].includes(location) ? <div/> :<div><h1>default</h1><Outlet/></div>} */}
         
-  <Outlet/>
+<Outlet/>
       
     </div>
   );
