@@ -12,7 +12,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Grow } from '@material-ui/core';
 // import Pagination from '@material-ui/lab/Pagination';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import { PaginationItem } from '@material-ui/lab';
 // import PaginationLink from './PagintaionLink';
 // import { PagesOutlined } from '@material-ui/icons';
@@ -108,9 +108,13 @@ const Products = memo((props) => {
   const classes = useStyles();
   console.log('Products = ', products)
   console.log('this is Products')
+let location = useLocation().search;
+  // const params = useParams();
+  location = location.slice(-1)==='/'? location:(location + '/');
+  const pageNo = parseInt(location?.slice(-2))||1;
 
-  const params = useParams();
-  const pageNo = parseInt(params?.pages?.slice(-1))||1;
+  // const pageNo = parseInt(params?.pages?.slice(-1))||1;
+  // console.log('this is params = ', params);
   console.log('this is pageNo = ', pageNo);
   console.log('this is product = ', products.slice(20*(pageNo-1),20*(pageNo)))
 
@@ -119,7 +123,7 @@ const Products = memo((props) => {
       {products.slice(20*(pageNo-1),20*(pageNo)).map((product) => {
         return (
           <Card key={product.id} className={classes.root} style={cartState[product.id] ? { boxShadow: '0px 0px 10px 5px orange' } : {}}>
-            <CardActionArea className={classes.card} component={Link} to={{  pathname: product.id, state: {
+            <CardActionArea className={classes.card} component={Link} to={{  pathname: `/productitem/${product.id}/`, state: {
             hello: "Hello World"  }}}>
               <CardMedia
                 className={classes.media}

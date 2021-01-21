@@ -12,6 +12,7 @@ import changeQuantity from './services/changeQuantity';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 // import { Pagination, PaginationItem } from '@material-ui/lab';
 import ProdPagination from './components/ProdPagination';
+import ProductsDetails from './components/ProductDetails';
 
 
 export default function AppRoutes() {
@@ -65,8 +66,9 @@ export default function AppRoutes() {
               <Route path="/" element={<Home />} />
               <Route path="products" element={<ProdPagination />} >
                 <Route path="/" element={<Products />} />
-                <Route path=":pages" element={<Products />} />
+                <Route path="?:pages" element={<Products />} />
               </Route>
+              <Route path="/productitem/:productID" element={<ProductsDetails/>} />
               {/* <Route>
         {({ location }) => {
           const query = new URLSearchParams(location.search);

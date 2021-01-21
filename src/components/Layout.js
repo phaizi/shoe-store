@@ -96,8 +96,11 @@ export default function Layout() {
   //   strict: false,
   // }, location)?.params?.pageNo.length
 location = location.search('/products/')? location:'/products/';
+location = location.search('/productitem/')? location:'/products/';
+// to convert all urls starting with '/products/...' to '/products/' so that appbar catches them all
   // console.log("this is params products = ",params);
-  // location = location.slice(-1)==='/'? location:(location + '/');
+  location = location.slice(-1)==='/'? location:(location + '/');
+  // to make appbar catch urls with trailing '/' or without '/' 
   const classes = useStyles();
   // const [value, setValue] = React.useState(location.pathname);
   // const [value, setValue] = React.useState(location);
