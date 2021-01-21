@@ -10,8 +10,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { Grow, useMediaQuery } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
+import { Grow } from '@material-ui/core';
+// import Pagination from '@material-ui/lab/Pagination';
+import { Link, useParams } from 'react-router-dom';
+// import { PaginationItem } from '@material-ui/lab';
+// import PaginationLink from './PagintaionLink';
+// import { PagesOutlined } from '@material-ui/icons';
 
 
 const useStyles = makeStyles(theme => ({
@@ -82,19 +86,19 @@ const useStyles = makeStyles(theme => ({
     fontSize: '30px'
   },
 
-  paginationAlign: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    width: '414px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '40px',
-    marginBottom: '40px',
+  // paginationAlign: {
+  //   backgroundColor: 'white',
+  //   borderRadius: '10px',
+  //   width: '414px',
+  //   marginLeft: 'auto',
+  //   marginRight: 'auto',
+  //   marginTop: '40px',
+  //   marginBottom: '40px',
 
-    [theme.breakpoints.down(424)]: {
-      width: '252px',
-    }
-  }
+  //   [theme.breakpoints.down(424)]: {
+  //     width: '252px',
+  //   }
+  // }
 
 }));
 
@@ -105,12 +109,18 @@ const Products = memo((props) => {
   console.log('Products = ', products)
   console.log('this is Products')
 
+  const params = useParams();
+  const pageNo = parseInt(params?.pages?.slice(-1))||1;
+  console.log('this is pageNo = ', pageNo);
+  console.log('this is product = ', products.slice(20*(pageNo-1),20*(pageNo)))
+
   return (
     <div className={classes.container}>
-      {products.map((product) => {
+      {products.slice(20*(pageNo-1),20*(pageNo)).map((product) => {
         return (
           <Card key={product.id} className={classes.root} style={cartState[product.id] ? { boxShadow: '0px 0px 10px 5px orange' } : {}}>
-            <CardActionArea className={classes.card}>
+            <CardActionArea className={classes.card} component={Link} to={{  pathname: product.id, state: {
+            hello: "Hello World"  }}}>
               <CardMedia
                 className={classes.media}
                 image={product.media.smallImageUrl}
@@ -138,7 +148,8 @@ const Products = memo((props) => {
               <CardActions className={classes.buttonSec} >
                 <Button 
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.preventDefault();
+                    // e.stopPropagation();
                     cartDispatch({ type: 'add', item: product });
                   }}
                   variant="contained" color="secondary">
@@ -146,7 +157,8 @@ const Products = memo((props) => {
                 </Button>
                 <div>
                   <Button disabled={!cartState[product.id] || false} onClick={(e) => {
-                    e.stopPropagation();
+                    // e.stopPropagation();
+                    e.preventDefault();
                     cartDispatch({ type: 'remove', item: product });
                   }}
                     variant="contained" color="secondary" style={{ margin: 3 }}>
@@ -154,7 +166,8 @@ const Products = memo((props) => {
                   </Button>
                   <Button disabled={!cartState[product.id] || false}
                     onClick={(e) => {
-                      e.stopPropagation();
+                    e.preventDefault();
+                    // e.stopPropagation();
                       cartDispatch({ type: 'clear', item: product });
                     }}
                     variant="contained" color="secondary" style={{ margin: 3 }}>
@@ -168,9 +181,29 @@ const Products = memo((props) => {
         )
       })}
 
-      <Pagination count={10} color="secondary" className={classes.paginationAlign}
+{/* <Pagination color="secondary" className={classes.paginationAlign}
+        count={10}
+        renderItem={item => (
+          <PaginationItem
+            component={Link}
+            to={`/products/${item.page === 1 ? 'page1' : `page${item.page}`}`}
+            {...item}
+          />
+        )}
+      /> */}
+{/* <PaginationLink color="secondary" className={classes.paginationAlign} */}
+{/* // size={useMediaQuery(theme => theme.breakpoints.down(424)) ? 'small' : 'large'} /> */}
+      {/* <Pagination count={10} color="secondary" className={classes.paginationAlign}
         size={useMediaQuery(theme => theme.breakpoints.down(424)) ? 'small' : 'large'} />
-
+    <Pagination
+              page={page}
+              count={10}
+              renderItem={(item) => (
+                <PaginationItem
+                  component={Link}
+                  to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
+                  {...item}
+                /> */}
     </div>
 
   );

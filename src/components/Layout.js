@@ -90,10 +90,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout() {
   const [cartState,] = useContext(CartContext);
   let location = useLocation().pathname;
-  location = location.slice(-1)==='/'? location:(location + '/');
+  // const params = matchPath({
+  //   path: "/products/:pageNo",
+  //   exact: false,
+  //   strict: false,
+  // }, location)?.params?.pageNo.length
+location = location.search('/products/')? location:'/products/';
+  // console.log("this is params products = ",params);
+  // location = location.slice(-1)==='/'? location:(location + '/');
   const classes = useStyles();
   // const [value, setValue] = React.useState(location.pathname);
   // const [value, setValue] = React.useState(location);
+  // console.log('this is products paramas = ',params);
   console.log('this is a tabpanel',<TabPanel></TabPanel>)
   console.log('this is a empty object which is',{},'and is',{}||'false')
   const handleChange = (event, newValue) => {

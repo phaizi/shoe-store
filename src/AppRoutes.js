@@ -3,13 +3,15 @@ import NotFound from './components/NotFound'
 import Home from './components/Home'
 import About from './components/About'
 import Products from './components/Products'
-import ProductDetails from './components/ProductDetails'
+// import ProductDetails from './components/ProductDetails'
 import Cart from './components/Cart'
 import Layout from './components/Layout'
 import { CartContext, ProductsContext } from './services/context';
 import { useEffect, useReducer, useState } from 'react';
 import changeQuantity from './services/changeQuantity';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+// import { Pagination, PaginationItem } from '@material-ui/lab';
+import ProdPagination from './components/ProdPagination';
 
 
 export default function AppRoutes() {
@@ -20,7 +22,8 @@ export default function AppRoutes() {
       const response = await fetch("https://api.thesneakerdatabase.com/v1/sneakers?"+ new URLSearchParams({'limit':'100', 'releaseDate': '2019-11-01'}))
       // const response = await fetch("https://covid19.mathdro.id/api?limit=100")
       const {results} = await response.json();
-      // console.log('data is =',results)
+      console.log('data is =',results)
+      
       console.log('this is AppRoutes')
       setProductData(results)
     } catch (err) {
@@ -60,8 +63,33 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="products" element={<Products />} />
-              <Route path="products/:productID" element={<ProductDetails />} />
+              <Route path="products" element={<ProdPagination />} >
+                <Route path="/" element={<Products />} />
+                <Route path=":pages" element={<Products />} />
+              </Route>
+              {/* <Route>
+        {({ location }) => {
+          const query = new URLSearchParams(location.search);
+          const page = parseInt(query.get('page') || '1', 10);
+          return (
+            <Pagination
+              // className={props.className}
+              // size={props.size}
+              color='secondary'
+              page={page}
+              count={10}
+              renderItem={(item) => (
+                <PaginationItem
+                  component={Link}
+                  to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
+                  {...item}
+                />
+              )}
+            />
+          );
+        }}
+      </Route> */}
+              {/* <Route path="products/:productID" element={<ProductDetails />} /> */}
               <Route path="cart" element={<Cart />} />
               <Route path="about" element={<About />} />
               <Route path='*' element={<NotFound />} />
