@@ -33,6 +33,9 @@ export default function changeQuantity(state, action) {
       delete newState[action.item.id];
       return newState;
 
+    case "resetAll":
+      return {total:0};
+
     default:
       return newState;
   }

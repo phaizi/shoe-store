@@ -11,12 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { Grow } from '@material-ui/core';
-// import Pagination from '@material-ui/lab/Pagination';
 import { Link, useLocation } from 'react-router-dom';
-// import { PaginationItem } from '@material-ui/lab';
-// import PaginationLink from './PagintaionLink';
-// import { PagesOutlined } from '@material-ui/icons';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   container: {
-    padding:'24px',
+    padding: '24px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly'
@@ -86,45 +81,31 @@ const useStyles = makeStyles(theme => ({
     fontSize: '30px'
   },
 
-  // paginationAlign: {
-  //   backgroundColor: 'white',
-  //   borderRadius: '10px',
-  //   width: '414px',
-  //   marginLeft: 'auto',
-  //   marginRight: 'auto',
-  //   marginTop: '40px',
-  //   marginBottom: '40px',
-
-  //   [theme.breakpoints.down(424)]: {
-  //     width: '252px',
-  //   }
-  // }
-
 }));
 
 const Products = memo((props) => {
+  console.log('PROPS', props)
   const [products] = useContext(ProductsContext);
   const [cartState, cartDispatch] = useContext(CartContext);
   const classes = useStyles();
   console.log('Products = ', products)
   console.log('this is Products')
-let location = useLocation().search;
+  let location = useLocation().search;
   // const params = useParams();
-  location = location.slice(-1)==='/'? location:(location + '/');
-  const pageNo = parseInt(location?.slice(-2))||1;
+  location = location.slice(-1) === '/' ? location : (location + '/');
+  const pageNo = parseInt(location?.slice(-2)) || 1;
 
   // const pageNo = parseInt(params?.pages?.slice(-1))||1;
   // console.log('this is params = ', params);
   console.log('this is pageNo = ', pageNo);
-  console.log('this is product = ', products.slice(20*(pageNo-1),20*(pageNo)))
+  console.log('this is product = ', products.slice(20 * (pageNo - 1), 20 * (pageNo)))
 
   return (
     <div className={classes.container}>
-      {products.slice(20*(pageNo-1),20*(pageNo)).map((product) => {
+      {products.slice(20 * (pageNo - 1), 20 * (pageNo)).map((product) => {
         return (
           <Card key={product.id} className={classes.root} style={cartState[product.id] ? { boxShadow: '0px 0px 10px 5px orange' } : {}}>
-            <CardActionArea className={classes.card} component={Link} to={{  pathname: `/productitem/${product.id}/`, state: {
-            hello: "Hello World"  }}}>
+            <CardActionArea className={classes.card} component={Link} to={{ pathname: `/products/${product.id}/` }}>
               <CardMedia
                 className={classes.media}
                 image={product.media.smallImageUrl}
@@ -150,10 +131,9 @@ let location = useLocation().search;
               </CardContent>
 
               <CardActions className={classes.buttonSec} >
-                <Button 
+                <Button
                   onClick={(e) => {
                     e.preventDefault();
-                    // e.stopPropagation();
                     cartDispatch({ type: 'add', item: product });
                   }}
                   variant="contained" color="secondary">
@@ -161,7 +141,6 @@ let location = useLocation().search;
                 </Button>
                 <div>
                   <Button disabled={!cartState[product.id] || false} onClick={(e) => {
-                    // e.stopPropagation();
                     e.preventDefault();
                     cartDispatch({ type: 'remove', item: product });
                   }}
@@ -170,8 +149,7 @@ let location = useLocation().search;
                   </Button>
                   <Button disabled={!cartState[product.id] || false}
                     onClick={(e) => {
-                    e.preventDefault();
-                    // e.stopPropagation();
+                      e.preventDefault();
                       cartDispatch({ type: 'clear', item: product });
                     }}
                     variant="contained" color="secondary" style={{ margin: 3 }}>
@@ -184,32 +162,7 @@ let location = useLocation().search;
           </Card>
         )
       })}
-
-{/* <Pagination color="secondary" className={classes.paginationAlign}
-        count={10}
-        renderItem={item => (
-          <PaginationItem
-            component={Link}
-            to={`/products/${item.page === 1 ? 'page1' : `page${item.page}`}`}
-            {...item}
-          />
-        )}
-      /> */}
-{/* <PaginationLink color="secondary" className={classes.paginationAlign} */}
-{/* // size={useMediaQuery(theme => theme.breakpoints.down(424)) ? 'small' : 'large'} /> */}
-      {/* <Pagination count={10} color="secondary" className={classes.paginationAlign}
-        size={useMediaQuery(theme => theme.breakpoints.down(424)) ? 'small' : 'large'} />
-    <Pagination
-              page={page}
-              count={10}
-              renderItem={(item) => (
-                <PaginationItem
-                  component={Link}
-                  to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
-                  {...item}
-                /> */}
     </div>
-
   );
 })
 

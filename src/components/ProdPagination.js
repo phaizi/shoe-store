@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import Products from './Products'
 import { Pagination, PaginationItem } from "@material-ui/lab";
-import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
+import { Link, matchPath, useLocation } from "react-router-dom";
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
 
 });
 export default function ProdPagination() {
-
+    
     const classes = useStyles();
     const location = '/products/' + useLocation().search.slice(1)
     console.log('thisi is location', useLocation());
@@ -58,13 +59,14 @@ export default function ProdPagination() {
                 renderItem={item => (
                     <PaginationItem
                         component={Link}
-                        to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
+                        // to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
+                        to={`/products${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         {...item}
                     />
                 )}
             />
 
-            <Outlet />
+            <Products />
             
             <Pagination color="secondary" className={classes.paginationAlign}
                 size="large"
@@ -74,7 +76,8 @@ export default function ProdPagination() {
                 renderItem={item => (
                     <PaginationItem
                         component={Link}
-                        to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
+                        // to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
+                        to={`/products${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         {...item}
                     />
                 )}
