@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Button, ButtonGroup, Grow, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Slide, Typography } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
@@ -134,9 +134,9 @@ export default function Cart() {
             <TableRow>
               <TableCell align='center' colSpan={2}>
                {orderPlaced ?
-                  <Grow {...{ timeout: 5000 }} in={orderPlaced}>
+                <Slide {...{ timeout: 2000 }} in={orderPlaced} direction="right"  mountOnEnter unmountOnExit>  
                 <Typography variant='h5'>Thankyou for placing your order with us</Typography>
-                </Grow>
+                </Slide>
                 : <Button disabled={!cartState.total} variant="contained" color="secondary"
                 onClick={()=>{
                   cartDispatch({type:'resetAll'}); 
@@ -144,7 +144,7 @@ export default function Cart() {
                   setTimeout(function(){ setOrder(false); 
                     console.log('location after chekout = ',window.location);
                     if(window.location.pathname==='/cart/'){
-                    navigate('/products') }}, 5000);
+                    navigate('/products') }}, 4000);
                 }}>
                   CHECKOUT
                 </Button>}</TableCell> 
