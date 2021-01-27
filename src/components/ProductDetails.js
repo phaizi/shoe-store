@@ -67,7 +67,7 @@ export default function ProductsDetails(props) {
         <Grid item style={{ marginBottom: 40, }} xs={11} md={5}>
           <Paper style={{ height: '100%', marginBottom: 40 }}>
             <Typography className={classes.label} variant='h4' >{product?.title}</Typography>
-            {Object.keys(detailsObj).map((key, index) => (
+            {Object.keys(detailsObj).map((key) => (
               <Grid container className={classes.root} justify="space-around" key={key}>
                 <Grid item xs={5} >
                   <span>
