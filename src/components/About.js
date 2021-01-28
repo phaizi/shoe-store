@@ -1,5 +1,11 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Divider, List, ListItem, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core';
 import React from 'react';
+import Link from '@material-ui/core/Link';
+// import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+// import FacebookIcon from '@material-ui/icons/Facebook';
+// import EmailIcon from '@material-ui/icons/Email';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
+// import GitHubIcon from '@material-ui/icons/GitHub';
 import Slider from './Slider';
 
 const useStyles = makeStyles(theme => ({
@@ -42,10 +48,10 @@ const useStyles = makeStyles(theme => ({
 
 const cards = [
   { title: 'Watsapp', value: '+923412607432' },
-  { title: 'Email', value: 'faizan.mansur87@gmail.com' },
-  { title: 'Github', value: 'https://github.com/phaizi' },
-  { title: 'Linkedin', value: 'https://www.linkedin.com\n/in/faizanmansur' },
-  { title: 'Facebook', value: 'https://www.facebook.com\n/faizan.mansur' }
+  { title: 'Email', value: 'faizan.mansur87@gmail.com', link:'https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=faizan.mansur87@gmail.com&su=MEETING%20FAIZAN%20MANSUR&body=MESSAGE' },
+  { title: 'Github', value: 'https://github.com/phaizi', link:'https://github.com/phaizi' },
+  { title: 'Linkedin', value: 'https://www.linkedin.com\n/in/faizanmansur', link:'https://www.linkedin.com/in/faizanmansur' },
+  { title: 'Facebook', value: 'https://www.facebook.com\n/faizan.mansur', link:'https://www.facebook.com\n/faizan.mansur' }
 ]
 const About = () => {
 
@@ -99,13 +105,14 @@ const About = () => {
             {cards.map((card) => {
               console.log('ABOUT this is card.title.toLocaleLowerCase() = ', card.title.toLocaleLowerCase())
               return (
+                <Link href={card.link} target="_blank" rel="noopener" key={card.title} >
                 <Card className={classes.card}>
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
                       image={`/u${card.title.toLocaleLowerCase()}.png`}
                       title={card.title}
-                    />
+                      />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         {card.title}
@@ -116,13 +123,14 @@ const About = () => {
                     </CardContent>
                   </CardActionArea>
                 </Card>
+            </Link>
               )
             })}
           </Slider>
 
-        </Paper>
+</Paper>
       </Container>
-    </div >
-  );
+      </div >
+      );
 }
 export default About;
