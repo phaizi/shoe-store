@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link';
 // import LinkedInIcon from '@material-ui/icons/LinkedIn';
 // import GitHubIcon from '@material-ui/icons/GitHub';
 import Slider from './Slider';
+import Slider2 from './Slider2';
 
 const useStyles = makeStyles(theme => ({
 
@@ -101,7 +102,7 @@ const About = () => {
           className={classes.paper} >
           <Typography variant='h3' className={classes.title}>Meet  Faizan Mansur @</Typography>
 
-          <Slider>
+          <Slider2 itemHeight={250} itemWidth={225} itemsTotal={5} itemsDisplayed={4}>
             {cards.map((card) => {
               console.log('ABOUT this is card.title.toLocaleLowerCase() = ', card.title.toLocaleLowerCase())
               return (
@@ -126,7 +127,7 @@ const About = () => {
             </Link>
               )
             })}
-          </Slider>
+          </Slider2>
 
 </Paper>
       </Container>
