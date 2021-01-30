@@ -34,7 +34,7 @@ export default function changeQuantity(state, action) {
       return newState;
 
     case "resetAll":
-      return {total:0};
+      return { total: 0 };
 
     default:
       return newState;

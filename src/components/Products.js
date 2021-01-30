@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react'
+import React, { useContext } from 'react'
 import { ProductsContext, CartContext } from '../services/context';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -83,22 +83,13 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const Products = memo((props) => {
-  console.log('PROPS', props)
+export default function Products() {
   const [products] = useContext(ProductsContext);
   const [cartState, cartDispatch] = useContext(CartContext);
   const classes = useStyles();
-  console.log('Products = ', products)
-  console.log('this is Products')
   let location = useLocation().search;
-  // const params = useParams();
   location = location.slice(-1) === '/' ? location : (location + '/');
   const pageNo = parseInt(location?.slice(-2)) || 1;
-
-  // const pageNo = parseInt(params?.pages?.slice(-1))||1;
-  // console.log('this is params = ', params);
-  console.log('this is pageNo = ', pageNo);
-  console.log('this is product = ', products.slice(20 * (pageNo - 1), 20 * (pageNo)))
 
   return (
     <div className={classes.container}>
@@ -156,19 +147,11 @@ const Products = memo((props) => {
                     <ClearIcon />
                   </Button>
                 </div>
-
               </CardActions>
             </CardActionArea>
           </Card>
         )
       })}
     </div>
-  );
-})
-
-export default Products;
-
-
-
-
-
+  )
+}

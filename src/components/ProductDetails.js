@@ -47,9 +47,6 @@ export default function ProductsDetails(props) {
   const classes = useStyles();
   const { productID } = useParams()
   const [product] = products.filter((shoe) => (productID === shoe.id))
-  console.log('this is props detatile= ', props.location);
-  console.log('Details this is products = ', products)
-  console.log('Details this is product = ', product)
   const details = ['brand', 'gender', 'releaseDate', 'retailPrice', 'colorway'];
   let detailsObj = {};
   detailsObj = product ? Object.keys(product).reduce(function (filtered, option) {
@@ -58,12 +55,17 @@ export default function ProductsDetails(props) {
     }
     return filtered;
   }, detailsObj) : {};
-  console.log('Details this is detailsObj = ', detailsObj)
-
 
   return (
     <div style={{ marginTop: 40, }}>
       <Grid container justify="space-around">
+
+        <Grid item style={{ marginBottom: 40, }} xs={11} md={6} >
+          <Paper style={{ height: '100%' }}>
+            <img src={product?.media.imageUrl} style={{ width: '100%', }} alt="product" />
+          </Paper>
+        </Grid>
+
         <Grid item style={{ marginBottom: 40, }} xs={11} md={5}>
           <Paper style={{ height: '100%', marginBottom: 40 }}>
             <Typography className={classes.label} variant='h4' >{product?.title}</Typography>
@@ -110,13 +112,7 @@ export default function ProductsDetails(props) {
           </Paper>
         </Grid >
 
-        <Grid item style={{ marginBottom: 40, }} xs={11} md={6} >
-          <Paper style={{ height: '100%' }}>
-            <img src={product?.media.imageUrl} style={{ width: '100%', }} alt="product" />
-          </Paper>
-        </Grid>
       </Grid >
     </div >
-
   );
 }

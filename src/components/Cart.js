@@ -18,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
   },
@@ -34,20 +33,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-// function createData(item, quantity, price, amount) {
-//   return { item, quantity, price, amount };
-// }
-
-// const rows =
-//   [
-//     createData('Frozen yoghurt', 159, 6.0, 24),
-//     createData('Ice cream sandwich', 237, 9.0, 37),
-//     createData('Eclair', 262, 16.0, 24),
-//     'total',
-//     createData('Cupcake', 305, 3.7, 67),
-//     createData('Gingerbread', 356, 16.0, 49),
-//   ];
 
 const useStyles = makeStyles({
   table: {
@@ -68,18 +53,17 @@ const useStyles = makeStyles({
 });
 
 export default function Cart() {
+
   const classes = useStyles();
   const [cartState, cartDispatch] = useContext(CartContext);
-  const [orderPlaced , setOrder] = useState(false);
+  const [orderPlaced, setOrder] = useState(false);
   const navigate = useNavigate();
 
-  console.log('this is cart = ', cartState);
   const subTotal = Object.keys(cartState).reduce(
     (acc, value) => acc + (value !== 'total' && cartState[value].retailPrice * cartState[value].quantity), 0)
   const shipping = cartState.total && 100;
 
   return (
-
     <Container maxWidth="lg" style={{ paddingTop: '5vh', paddingBottom: '5vh', }}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
@@ -93,24 +77,24 @@ export default function Cart() {
           </TableHead>
           <TableBody>
             {Object.keys(cartState).map((row) => (
-              row !== 'total' && 
+              row !== 'total' &&
               <StyledTableRow key={cartState[row].id}>
                 <StyledTableCell component="th" scope="row">
                   {cartState[row].title}
                 </StyledTableCell>
                 <StyledTableCell align='right'>
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                    <Button size="small" variant="contained" color="secondary" 
-                    onClick={()=>{cartDispatch({type:'add',item:cartState[row]})}}>
+                    <Button size="small" variant="contained" color="secondary"
+                      onClick={() => { cartDispatch({ type: 'add', item: cartState[row] }) }}>
                       <AddIcon fontSize="small" />
                     </Button>
-                    <Button size="small" variant="contained" color="secondary" 
-                    onClick={()=>{cartDispatch({type:'remove',item:cartState[row]})}}>
+                    <Button size="small" variant="contained" color="secondary"
+                      onClick={() => { cartDispatch({ type: 'remove', item: cartState[row] }) }}>
                       <RemoveIcon fontSize="small" />
                     </Button>
                     <Button
-                      size="small" variant="contained" color="secondary" 
-                      onClick={()=>{cartDispatch({type:'clear',item:cartState[row]})}}>
+                      size="small" variant="contained" color="secondary"
+                      onClick={() => { cartDispatch({ type: 'clear', item: cartState[row] }) }}>
                       <ClearIcon fontSize="small" />
                     </Button></ButtonGroup>
                   <span className={classes.cartCount}>
@@ -133,21 +117,24 @@ export default function Cart() {
             </TableRow>
             <TableRow>
               <TableCell align='center' colSpan={2}>
-               {orderPlaced ?
-                <Slide {...{ timeout: 2000 }} in={orderPlaced} direction="right"  mountOnEnter unmountOnExit>  
-                <Typography variant='h5'>Thankyou for placing your order with us</Typography>
-                </Slide>
-                : <Button disabled={!cartState.total} variant="contained" color="secondary"
-                onClick={()=>{
-                  cartDispatch({type:'resetAll'}); 
-                  setOrder(true);
-                  setTimeout(function(){ setOrder(false); 
-                    console.log('location after chekout = ',window.location);
-                    if(window.location.pathname==='/cart/'){
-                    navigate('/products') }}, 4000);
-                }}>
-                  CHECKOUT
-                </Button>}</TableCell> 
+                {orderPlaced ?
+                  <Slide {...{ timeout: 2000 }} in={orderPlaced} direction="right" mountOnEnter unmountOnExit>
+                    <Typography variant='h5'>Thankyou for placing your order with us</Typography>
+                  </Slide>
+                  : <Button disabled={!cartState.total} variant="contained" color="secondary"
+                    onClick={() => {
+                      cartDispatch({ type: 'resetAll' });
+                      setOrder(true);
+                      setTimeout(function () {
+                        setOrder(false);
+                        console.log('location after chekout = ', window.location);
+                        if (window.location.pathname === '/cart/') {
+                          navigate('/products')
+                        }
+                      }, 4000);
+                    }}>
+                    CHECKOUT
+                </Button>}</TableCell>
               <TableCell align='center'>Total</TableCell>
               <TableCell align='center'>{subTotal + shipping}</TableCell>
             </TableRow>
@@ -155,7 +142,6 @@ export default function Cart() {
         </Table>
       </TableContainer>
     </Container>
-
   );
 }
 

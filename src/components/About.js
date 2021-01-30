@@ -1,12 +1,7 @@
 import { Card, CardActionArea, CardContent, CardMedia, Container, Divider, List, ListItem, ListItemText, makeStyles, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 import Link from '@material-ui/core/Link';
-// import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-// import FacebookIcon from '@material-ui/icons/Facebook';
-// import EmailIcon from '@material-ui/icons/Email';
-// import LinkedInIcon from '@material-ui/icons/LinkedIn';
-// import GitHubIcon from '@material-ui/icons/GitHub';
-import Slider2 from './Slider2';
+import Slider from './Slider';
 
 const useStyles = makeStyles(theme => ({
 
@@ -42,20 +37,18 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Yusei Magic,sans-serif',
     marginTop: '40px',
     paddingLeft: '30px',
-
   }
 }))
 
 const cards = [
   { title: 'Watsapp', value: '+923412607432' },
-  { title: 'Email', value: 'faizan.mansur87@gmail.com', link:'https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=faizan.mansur87@gmail.com&su=MEETING%20FAIZAN%20MANSUR&body=MESSAGE' },
-  { title: 'Github', value: 'https://github.com/phaizi', link:'https://github.com/phaizi' },
-  { title: 'Linkedin', value: 'https://www.linkedin.com\n/in/faizanmansur', link:'https://www.linkedin.com/in/faizanmansur' },
-  { title: 'Facebook', value: 'https://www.facebook.com\n/faizan.mansur', link:'https://www.facebook.com\n/faizan.mansur' }
+  { title: 'Email', value: 'faizan.mansur87@gmail.com', link: 'https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=faizan.mansur87@gmail.com&su=MEETING%20FAIZAN%20MANSUR&body=MESSAGE' },
+  { title: 'Github', value: 'https://github.com/phaizi', link: 'https://github.com/phaizi' },
+  { title: 'Linkedin', value: 'https://www.linkedin.com\n/in/faizanmansur', link: 'https://www.linkedin.com/in/faizanmansur' },
+  { title: 'Facebook', value: 'https://www.facebook.com\n/faizan.mansur', link: 'https://www.facebook.com\n/faizan.mansur' }
 ]
-const About = () => {
+export default function About() {
 
-  console.log('this is About')
   const classes = useStyles();
 
   return (
@@ -88,7 +81,12 @@ const About = () => {
               <Divider />
 
               <ListItem>
-                <ListItemText primary="5. Fully responsive on all screen sizes" />
+                <ListItemText primary="5. Displaying the new arrival on the home page" />
+              </ListItem>
+              <Divider />
+
+              <ListItem>
+                <ListItemText primary="6. Fully responsive on all screen sizes" />
               </ListItem>
               <Divider />
             </List>
@@ -101,36 +99,35 @@ const About = () => {
           className={classes.paper} >
           <Typography variant='h3' className={classes.title}>Meet  Faizan Mansur @</Typography>
 
-          <Slider2 itemHeight={250} itemWidth={225} itemsTotal={5} itemsDisplayed={4}>
+          <Slider itemHeight={250} itemWidth={225} itemsTotal={5} itemsDisplayed={4}>
             {cards.map((card) => {
               console.log('ABOUT this is card.title.toLocaleLowerCase() = ', card.title.toLocaleLowerCase())
               return (
                 <Link href={card.link} target="_blank" rel="noopener" key={card.title} >
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.media}
-                      image={`/u${card.title.toLocaleLowerCase()}.png`}
-                      title={card.title}
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={`/u${card.title.toLocaleLowerCase()}.png`}
+                        title={card.title}
                       />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {card.title}
-                      </Typography>
-                      <Typography variant="body2" color="white" component="p">
-                        {card.value}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-            </Link>
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {card.title}
+                        </Typography>
+                        <Typography variant="body2" color="white" component="p">
+                          {card.value}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Link>
               )
             })}
-          </Slider2>
-
-</Paper>
+          </Slider>
+          
+        </Paper>
       </Container>
-      </div >
-      );
+    </div >
+  );
 }
-export default About;

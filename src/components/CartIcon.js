@@ -18,12 +18,12 @@ export default function CartIcon({ quantity }) {
             fontSize: '30px',
         }
     });
-    console.log('this is Carticon')
+
     const classes = useStyles();
     return (
         <div>
             <span className={classes.quantity}>
-                {quantity??0 }
+                {quantity ?? 0}
             </span>
             <ShoppingCart className={classes.icon} />
         </div>

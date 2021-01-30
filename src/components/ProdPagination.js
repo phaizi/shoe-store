@@ -12,8 +12,6 @@ const useStyles = makeStyles({
         width: '276px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        // marginTop: '40px',
-        // marginBottom: '40px',
     },
     containerDiv: {
         paddingTop: '40px',
@@ -22,28 +20,21 @@ const useStyles = makeStyles({
 
 });
 export default function ProdPagination() {
-    
+
     const classes = useStyles();
     const location = '/products/' + useLocation().search.slice(1)
     console.log('thisi is location', useLocation());
-    
+
     const pageObj = matchPath({
         path: "/products/:pageNo",
         exact: false,
         strict: false,
-        // },req.path);
     }, location);
 
-    // console.log("type of matchPath = ",typeof(matchPath))
-    console.log('this is matchObj = ', pageObj)
-    // const params = useParams();
     const initialPage = parseInt(pageObj?.params.pageNo.slice(-1)) || 1
     // if there is no params in url then initialPage will b 1 otherwise taken from params
-    console.log('this is initial = ', initialPage);
-    // console.log('this is params = ', params);
 
     const [page, setPage] = useState(initialPage);
-    console.log('page value is = ', page)
     const handleChange = (event, value) => {
         setPage(value);
     };
@@ -59,15 +50,13 @@ export default function ProdPagination() {
                 renderItem={item => (
                     <PaginationItem
                         component={Link}
-                        // to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         to={`/products${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         {...item}
                     />
                 )}
             />
-
             <Products />
-            
+
             <Pagination color="secondary" className={classes.paginationAlign}
                 size="large"
                 count={4}
@@ -76,7 +65,6 @@ export default function ProdPagination() {
                 renderItem={item => (
                     <PaginationItem
                         component={Link}
-                        // to={`/products/${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         to={`/products${item.page === 1 ? '' : `?${new URLSearchParams({ page: item.page })}/`}`}
                         {...item}
                     />
