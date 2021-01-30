@@ -1,10 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
-import { Card, CardActionArea, CardContent, CardMedia, Container, Typography, makeStyles, useMediaQuery, Button } from '@material-ui/core';
-import Slider from './Slider';
+import { Card, CardActionArea, CardContent, CardMedia, Container, Typography, makeStyles } from '@material-ui/core';
 import { ProductsContext } from '../services/context';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Slider2 from './Slider2';
 
 
@@ -72,7 +69,7 @@ export default function Home(props) {
 
                    <Slider2 itemHeight={260} itemWidth={225} itemsTotal={10} itemsDisplayed={4}>
                             {products?.sort((a, b) => (new Date(b?.releaseDate).getTime() - new Date(a?.releaseDate).getTime())).slice(0, 10).map((product) => (
-                                <Card className={classes.card}>
+                                <Card className={classes.card} key={product.title}>
                                     <CardActionArea component={Link} to={{ pathname: `/products/${product.id}/` }}>
                                         <CardMedia
                                             className={classes.media}

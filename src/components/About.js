@@ -6,7 +6,6 @@ import Link from '@material-ui/core/Link';
 // import EmailIcon from '@material-ui/icons/Email';
 // import LinkedInIcon from '@material-ui/icons/LinkedIn';
 // import GitHubIcon from '@material-ui/icons/GitHub';
-import Slider from './Slider';
 import Slider2 from './Slider2';
 
 const useStyles = makeStyles(theme => ({
