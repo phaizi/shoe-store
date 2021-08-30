@@ -17,7 +17,10 @@ export default function AppRoutes() {
 
     async function fetchData(){
       try {
-      const response = await fetch("https://api.thesneakerdatabase.com/v1/sneakers?"+ new URLSearchParams({'limit':'100', 'releaseDate': '2019-11-01'}))
+      const response = await fetch("https://v1-sneakers.p.rapidapi.com/v1/sneakers?"+ new URLSearchParams({'limit':'100', 'releaseDate': '2019-11-01'}),{headers: {
+        'x-rapidapi-host': 'v1-sneakers.p.rapidapi.com',
+    'x-rapidapi-key': 'ff08e7f7fcmsh6260d8fb0f6c656p1d6c04jsndd1e2becebf3'
+      }})
       const {results} = await response.json();
       setProductData(results)
     } catch (err) {
