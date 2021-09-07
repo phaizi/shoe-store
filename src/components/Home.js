@@ -64,7 +64,7 @@ export default function Home(props) {
                                 <CardActionArea component={Link} to={{ pathname: `/products/${product.id}/` }}>
                                     <CardMedia
                                         className={classes.media}
-                                        image={product.media.smallImageUrl}
+                                        image={product.media.smallImageUrl??"/noImage.jpg"}
                                         title={product.title}
                                     />
                                     <CardContent>
