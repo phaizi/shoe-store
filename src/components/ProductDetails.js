@@ -62,7 +62,7 @@ export default function ProductsDetails(props) {
 
         <Grid item style={{ marginBottom: 40, }} xs={11} md={6} >
           <Paper style={{ height: '100%' }}>
-            <img src={product?.media.imageUrl} style={{ width: '100%', }} alt="product" />
+            <img src={product?.media.imageUrl||"/noImage.jpg"} style={{ width: '100%', }} alt="product" />
           </Paper>
         </Grid>
 
