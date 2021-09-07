@@ -21,29 +21,29 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '22%',
     margin: '20px',
     flex: '23%',
-    transition: 'box-shadow 0.5s, max-width 0.5s ease-out',
+    transition: 'box-shadow 0.5s ease-out',
 
     '&:hover': {
-      maxWidth: '366px',
-      maxHeight: '400px',
-      margin: '0px',
+      // maxWidth: '366px',
+      // maxHeight: '400px',
+      // margin: '0px',
       boxShadow: '0px 0px 10px 5px #108393',
 
-      [theme.breakpoints.down(1415)]: {
-        maxWidth: '340px',
-        maxHeight: '400px',
-        margin: '13px',
-        marginDown: '0',
-        marginTop: '0',
-      },
+      // [theme.breakpoints.down(1415)]: {
+      //   maxWidth: '340px',
+      //   maxHeight: '400px',
+      //   margin: '13px',
+      //   marginDown: '0',
+      //   marginTop: '0',
+      // },
 
-      [theme.breakpoints.down(1077)]: {
-        maxWidth: '340px',
-        maxHeight: '400px',
-        margin: '20px',
-        marginDown: '0px',
-        marginTop: '0px',
-      },
+      // [theme.breakpoints.down(1077)]: {
+      //   maxWidth: '340px',
+      //   maxHeight: '400px',
+      //   margin: '20px',
+      //   marginDown: '0px',
+      //   marginTop: '0px',
+      // },
     }
   },
 
