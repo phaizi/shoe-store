@@ -32,4 +32,4 @@ jobs:
       run: npm install --global surge
       
     - name: Run surge
-      run: surge ./build shoestore-faizan.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      run: surge ./build resume_faizan.surge.sh/ --token ${{ secrets.SURGE_TOKEN }}
